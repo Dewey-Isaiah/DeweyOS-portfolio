@@ -7,193 +7,648 @@
 
   <link rel="stylesheet" href="style.css" />
 
-  <!-- FONT AWESOME 5 (used for icons where no custom images exist) -->
+  <!-- Font Awesome 5: used only for icons that are not custom image files -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 
 <body class="wallpaper-1">
-
-<!-- ================= BOOT SCREEN ================= -->
-<div id="bootScreen" class="boot-screen">
-  <div class="boot-logo">DeweyOS</div>
-  <div class="boot-sub">Starting portfolio system...</div>
-</div>
-
-<!-- ================= LOGIN ================= -->
-<div id="loginScreen" class="login-screen hidden">
-  <div class="login-card glass">
-    <img src="Imgs/profile.png" class="login-avatar">
-    <h1>Dewey</h1>
-    <button id="signInBtn">Sign In</button>
-  </div>
-</div>
-
-<!-- ================= DESKTOP ================= -->
-<main id="desktop" class="desktop hidden">
-
-  <!-- DESKTOP ICONS -->
-  <div class="desktop-icons">
-
-    <!-- CUSTOM ICON -->
-    <button class="desktop-shortcut" data-window="chromeWindow">
-      <img src="Imgs/browser.png">
-      <span>Chrome</span>
-    </button>
-
-    <!-- CUSTOM ICON -->
-    <button class="desktop-shortcut" data-window="projectsWindow">
-      <img src="Imgs/folder.png">
-      <span>Projects</span>
-    </button>
-
-    <!-- CUSTOM ICON -->
-    <button class="desktop-shortcut" data-window="musicWindow">
-      <img src="Imgs/iheart.png">
-      <span>Music</span>
-    </button>
-
-    <!-- CHANGE ICON HERE -->
-    <button class="desktop-shortcut" data-window="recycleWindow">
-      <i class="fas fa-trash"></i>
-      <span>Recycle Bin</span>
-    </button>
-
-    <!-- CHANGE ICON HERE -->
-    <button class="desktop-shortcut" data-window="settingsWindow">
-      <i class="fas fa-cog"></i>
-      <span>Settings</span>
-    </button>
-
-    <!-- CHANGE ICON HERE -->
-    <button class="desktop-shortcut" data-window="serverWindow">
-      <i class="fas fa-server"></i>
-      <span>Server</span>
-    </button>
-
-    <!-- CHANGE ICON HERE -->
-    <button class="desktop-shortcut" data-window="storeWindow">
-      <i class="fas fa-store"></i>
-      <span>Store</span>
-    </button>
-
-    <!-- CHANGE ICON HERE -->
-    <button class="desktop-shortcut" data-window="systemWindow">
-      <i class="fas fa-desktop"></i>
-      <span>This PC</span>
-    </button>
-
+  <div id="bootScreen" class="boot-screen">
+    <div>
+      <div class="boot-logo">DeweyOS</div>
+      <div class="boot-sub">Starting portfolio system...</div>
+      <div class="boot-loader">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
   </div>
 
-  <!-- ================= PROJECT WINDOW ================= -->
-  <section class="window glass hidden-window" id="projectsWindow">
+  <div id="loginScreen" class="login-screen hidden">
+    <div class="login-bg"></div>
+    <div class="login-card glass">
+      <div class="login-avatar-wrap">
+        <img src="Imgs/profile.png" alt="Dewey Profile" class="login-avatar" />
+      </div>
+      <p class="login-sub">Welcome back</p>
+      <h1>Dewey</h1>
+      <button id="signInBtn" class="sign-in-btn">Sign In</button>
+    </div>
+  </div>
 
-    <div class="window-bar">
-      <span>Projects</span>
+  <main id="desktop" class="desktop hidden">
+    <div class="desktop-icons" id="desktopIcons">
+      <button class="desktop-shortcut" data-window="chromeWindow">
+        <div class="desktop-shortcut-img">
+          <img src="Imgs/browser.png" alt="Chrome">
+        </div>
+        <span>Chrome</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="projectsWindow">
+        <div class="desktop-shortcut-img">
+          <img src="Imgs/folder.png" alt="Projects">
+        </div>
+        <span>Projects</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="musicWindow">
+        <div class="desktop-shortcut-img">
+          <img src="Imgs/iheart.png" alt="iHeart">
+        </div>
+        <span>iHeart</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="recycleWindow">
+        <div class="desktop-shortcut-img icon-fa">
+          <i class="fas fa-trash"></i>
+        </div>
+        <span>Recycle Bin</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="settingsWindow">
+        <div class="desktop-shortcut-img icon-fa">
+          <i class="fas fa-cog"></i>
+        </div>
+        <span>Settings</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="serverWindow">
+        <div class="desktop-shortcut-img icon-fa">
+          <i class="fas fa-server"></i>
+        </div>
+        <span>Server Monitor</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="storeWindow">
+        <div class="desktop-shortcut-img icon-fa">
+          <i class="fas fa-store"></i>
+        </div>
+        <span>App Store</span>
+      </button>
+
+      <button class="desktop-shortcut" data-window="systemWindow">
+        <div class="desktop-shortcut-img icon-fa">
+          <i class="fas fa-desktop"></i>
+        </div>
+        <span>About This PC</span>
+      </button>
     </div>
 
-    <div class="window-content">
+    <aside id="notificationPanel" class="notification-panel glass hidden">
+      <div class="panel-header">
+        <h3>Notifications</h3>
+        <button id="clearNotifications" class="action-btn secondary-btn small-btn">Clear</button>
+      </div>
+      <div id="notificationList" class="notification-list"></div>
+    </aside>
 
-      <div class="project-folder-card">
-        <!-- CHANGE ICON HERE -->
-        <i class="fas fa-folder"></i>
-        <h3>DeweyOS</h3>
+    <section class="window glass hidden-window" id="aboutWindow" style="top: 120px; left: 110px; width: 420px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="window-title">About Me</div>
+      </div>
+      <div class="window-content">
+        <h2>Dewey</h2>
+        <p class="muted">Frontend Developer • Backend Developer • Designer</p>
+        <p>
+          I build modern websites, full-stack apps, hosting platforms, dashboards,
+          and polished UI experiences with a premium feel.
+        </p>
+        <div class="tags">
+          <span>HTML</span>
+          <span>CSS</span>
+          <span>JavaScript</span>
+          <span>Python</span>
+          <span>Flask</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="projectsWindow" style="top: 100px; left: 260px; width: 780px; height: 620px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">File Explorer - Projects</div>
       </div>
 
-      <div class="project-folder-card">
-        <i class="fas fa-folder"></i>
-        <h3>Deweys Media</h3>
+      <div class="explorer-toolbar">
+        <button class="explorer-nav-btn" id="projectsBackBtn">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <div class="explorer-path" id="projectsPath">This PC / 2026 Projects</div>
       </div>
 
+      <div class="window-content explorer-content">
+        <div class="explorer-sidebar">
+          <button class="explorer-side-item active">2026 Projects</button>
+          <button class="explorer-side-item">Downloads</button>
+          <button class="explorer-side-item">Recent</button>
+        </div>
+
+        <div class="explorer-main">
+          <div class="explorer-grid" id="projectGrid">
+            <div class="project-folder-card" data-project="deweyos">
+              <div class="project-folder-icon">
+                <i class="fas fa-folder"></i>
+              </div>
+              <h3>DeweyOS Portfolio</h3>
+              <p>Desktop-style portfolio with draggable windows and OS UI.</p>
+            </div>
+
+            <div class="project-folder-card" data-project="media">
+              <div class="project-folder-icon">
+                <i class="fas fa-folder"></i>
+              </div>
+              <h3>Deweys Media</h3>
+              <p>Full scale social media platform made with Python and Flask.</p>
+            </div>
+
+            <div class="project-folder-card" data-project="hosting">
+              <div class="project-folder-icon">
+                <i class="fas fa-folder"></i>
+              </div>
+              <h3>Deweys Hosting</h3>
+              <p>A hosting platform for games like Rust, Minecraft, and more.</p>
+            </div>
+          </div>
+
+          <div class="project-details hidden" id="projectDetails">
+            <div class="project-details-header">
+              <button class="action-btn secondary-btn" id="closeProjectDetails">
+                <i class="fas fa-arrow-left"></i> Back
+              </button>
+              <div>
+                <h2 id="projectTitle">Project Title</h2>
+                <p id="projectDescription" class="muted">Project description</p>
+              </div>
+            </div>
+
+            <div class="project-file-list">
+              <div class="project-file-row">
+                <div class="file-meta">
+                  <span class="file-icon" id="projectDemoIcon">
+                    <i class="fas fa-globe"></i>
+                  </span>
+                  <div>
+                    <strong id="projectDemoLabel">Live Demo</strong>
+                    <p id="projectDemoText">Open the live project inside Chrome</p>
+                  </div>
+                </div>
+                <button class="action-btn" id="projectDemoBtn">Demo</button>
+              </div>
+
+              <div class="project-file-row">
+                <div class="file-meta">
+                  <span class="file-icon" id="projectSourceIcon">
+                    <i class="fas fa-code"></i>
+                  </span>
+                  <div>
+                    <strong id="projectSourceLabel">Source Code</strong>
+                    <p id="projectSourceText">Open the GitHub repo inside Chrome</p>
+                  </div>
+                </div>
+                <button class="action-btn secondary-btn" id="projectSourceBtn">Source Code</button>
+              </div>
+            </div>
+
+            <div id="projectExtraCard" class="status-card hidden"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="chromeWindow" style="top: 90px; left: 540px; width: 930px; height: 660px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">Chrome</div>
+      </div>
+
+      <div class="chrome-tabs-bar">
+        <button class="chrome-tab active">
+          <img src="Imgs/browser.png" alt="Chrome">
+          <span id="chromeTabText">New Tab</span>
+        </button>
+      </div>
+
+      <div class="chrome-toolbar">
+        <button class="chrome-nav-btn" id="chromeBack">
+          <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="chrome-nav-btn" id="chromeForward">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+        <button class="chrome-nav-btn" id="chromeRefresh">
+          <i class="fas fa-redo"></i>
+        </button>
+
+        <div class="chrome-address-wrap">
+          <input
+            type="text"
+            id="chromeAddress"
+            class="chrome-address"
+            value="home://welcome"
+            placeholder="Search or type a URL"
+          />
+        </div>
+
+        <button class="chrome-go-btn" id="chromeGo">Go</button>
+      </div>
+
+      <div class="window-content chrome-content">
+        <div id="chromeHome" class="chrome-home active">
+          <div class="chrome-home-header">
+            <img src="Imgs/browser.png" alt="Chrome">
+            <h2>Dewey Chrome</h2>
+            <p>Open demos, source code, and project links here.</p>
+          </div>
+
+          <div class="home-cards">
+            <button class="home-card" onclick="openGithubPage()">
+              <span>GitHub</span>
+              <small>Quick open</small>
+            </button>
+
+            <button class="home-card" data-open-url="https://www.iheart.com/">
+              <span>iHeart</span>
+              <small>Music</small>
+            </button>
+
+            <button class="home-card" data-open-url="home://system">
+              <span>System Page</span>
+              <small>DeweyOS</small>
+            </button>
+          </div>
+        </div>
+
+        <div id="chromeGithub" class="chrome-home hidden">
+          <div class="github-page">
+            <div class="github-topbar">
+              <h2>Dewey / DeweyOS</h2>
+              <p>main branch</p>
+            </div>
+
+            <div class="github-files">
+              <div class="github-file"><i class="fas fa-file-code"></i> index.html</div>
+              <div class="github-file"><i class="fas fa-paint-brush"></i> style.css</div>
+              <div class="github-file"><i class="fas fa-bolt"></i> script.js</div>
+              <div class="github-file"><i class="fas fa-folder"></i> Imgs</div>
+            </div>
+
+            <div class="github-readme">
+              <h3>README.md</h3>
+              <p>DeweyOS desktop portfolio operating system UI.</p>
+              <p>Includes draggable windows, taskbar, file explorer, Chrome clone, and app launcher.</p>
+            </div>
+          </div>
+        </div>
+
+        <div id="chromeViewer" class="chrome-viewer hidden">
+          <iframe id="chromeFrame" src="about:blank" title="Chrome Viewer"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="musicWindow" style="top: 140px; left: 1040px; width: 700px; height: 680px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">iHeart</div>
+      </div>
+      <div class="window-content spotify-content">
+        <iframe id="musicFrame" src="https://www.iheart.com/" title="iHeart" loading="lazy"></iframe>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="terminalWindow" style="top: 220px; left: 260px; width: 520px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="window-title">Terminal</div>
+      </div>
+      <div class="window-content terminal">
+        <div id="terminalOutput"></div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="contactWindow" style="top: 180px; left: 1240px; width: 360px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="window-title">Contact</div>
+      </div>
+      <div class="window-content">
+        <h2>Contact</h2>
+        <p><strong>Email:</strong> you@example.com</p>
+        <p><strong>Location:</strong> Michigan, US</p>
+        <p><strong>Status:</strong> Open for freelance work</p>
+        <a class="action-btn" href="mailto:you@example.com">Send Email</a>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="resumeWindow" style="top: 280px; left: 1280px; width: 360px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="window-title">Resume</div>
+      </div>
+      <div class="window-content">
+        <h2>Experience</h2>
+        <ul class="resume-list">
+          <li>Frontend Development</li>
+          <li>Backend APIs</li>
+          <li>UI / UX Design</li>
+          <li>Hosting Platforms</li>
+          <li>Full-Stack Web Apps</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="recycleWindow" style="top: 150px; left: 410px; width: 620px; height: 500px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">Recycle Bin</div>
+      </div>
+      <div class="window-content">
+        <h2>Deleted Concepts</h2>
+        <div class="file-list">
+          <div class="list-row">
+            <span><i class="fas fa-flask row-icon"></i> Old YouTube Clone UI.sketch</span>
+            <small>Archived idea</small>
+          </div>
+          <div class="list-row">
+            <span><i class="fas fa-broom row-icon"></i> First Hosting Logo.ai</span>
+            <small>Old branding</small>
+          </div>
+          <div class="list-row">
+            <span><i class="fas fa-folder row-icon"></i> Unused Portfolio Layout</span>
+            <small>Draft</small>
+          </div>
+          <div class="list-row">
+            <span><i class="fas fa-palette row-icon"></i> Neon Theme V1</span>
+            <small>Replaced</small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="settingsWindow" style="top: 120px; left: 520px; width: 720px; height: 590px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">Settings</div>
+      </div>
+      <div class="window-content settings-grid">
+        <div class="settings-card">
+          <h3>Wallpaper</h3>
+          <div class="wallpaper-grid">
+            <button class="wallpaper-option active" data-wallpaper="wallpaper-1">Purple Glow</button>
+            <button class="wallpaper-option" data-wallpaper="wallpaper-2">Galaxy</button>
+            <button class="wallpaper-option" data-wallpaper="wallpaper-3">Blue Night</button>
+            <button class="wallpaper-option" data-wallpaper="wallpaper-4">Sunset Dark</button>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Sound</h3>
+          <div class="setting-row">
+            <span>System Sounds</span>
+            <button id="soundToggle" class="action-btn">On</button>
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Desktop</h3>
+          <div class="setting-row">
+            <span>Taskbar Transparency</span>
+            <input id="glassRange" type="range" min="0.45" max="0.95" step="0.05" value="0.7">
+          </div>
+        </div>
+
+        <div class="settings-card">
+          <h3>Developer Mode</h3>
+          <div class="setting-row">
+            <span>Portfolio Build</span>
+            <span class="badge">Enabled</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="serverWindow" style="top: 140px; left: 600px; width: 700px; height: 560px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">Server Monitor</div>
+      </div>
+      <div class="window-content">
+        <div class="stats-grid">
+          <div class="status-card">
+            <h3>CPU Usage</h3>
+            <div class="big-stat" id="cpuStat">42%</div>
+          </div>
+          <div class="status-card">
+            <h3>RAM Usage</h3>
+            <div class="big-stat" id="ramStat">61%</div>
+          </div>
+          <div class="status-card">
+            <h3>Active Nodes</h3>
+            <div class="big-stat" id="nodeStat">3</div>
+          </div>
+          <div class="status-card">
+            <h3>Uptime</h3>
+            <div class="big-stat" id="uptimeStat">99.9%</div>
+          </div>
+        </div>
+
+        <div class="file-list mt-20">
+          <div class="list-row"><span>Minecraft Servers</span><small id="mcCount">12 Active</small></div>
+          <div class="list-row"><span>Rust Servers</span><small id="rustCount">4 Active</small></div>
+          <div class="list-row"><span>Discord Bot Nodes</span><small>2 Online</small></div>
+          <div class="list-row"><span>Panel API</span><small>Operational</small></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="storeWindow" style="top: 160px; left: 650px; width: 700px; height: 570px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">DeweyOS Store</div>
+      </div>
+      <div class="window-content">
+        <div class="store-grid">
+          <div class="store-card">
+            <h3>Chrome</h3>
+            <p>Browser for demos and links</p>
+            <button class="action-btn install-btn" data-window="chromeWindow">Open</button>
+          </div>
+          <div class="store-card">
+            <h3>Hosting</h3>
+            <p>Server dashboard preview</p>
+            <button class="action-btn install-btn" data-window="serverWindow">Open</button>
+          </div>
+          <div class="store-card">
+            <h3>Settings</h3>
+            <p>Personalize DeweyOS</p>
+            <button class="action-btn install-btn" data-window="settingsWindow">Open</button>
+          </div>
+          <div class="store-card">
+            <h3>Music</h3>
+            <p>Quick launch iHeart</p>
+            <button class="action-btn install-btn" data-window="musicWindow">Open</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window glass hidden-window" id="systemWindow" style="top: 170px; left: 730px; width: 620px; height: 480px;">
+      <div class="window-bar drag-handle">
+        <div class="window-dots">
+          <span class="dot red close-btn"></span>
+          <span class="dot yellow minimize-btn"></span>
+          <span class="dot green max-btn"></span>
+        </div>
+        <div class="window-title">About This PC</div>
+      </div>
+      <div class="window-content">
+        <div class="status-card">
+          <h2>DeweyOS 1.0</h2>
+          <p class="muted">Portfolio Edition</p>
+          <div class="file-list mt-20">
+            <div class="list-row"><span>Developer</span><small>Deweys Studio</small></div>
+            <div class="list-row"><span>Frontend</span><small>HTML / CSS / JavaScript</small></div>
+            <div class="list-row"><span>Backend</span><small>Python / Flask</small></div>
+            <div class="list-row"><span>Build</span><small>Desktop Portfolio Interface</small></div>
+            <div class="list-row"><span>Status</span><small>Active</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="start-menu glass" id="startMenu">
+      <div class="start-menu-header">
+        <div class="start-user">
+          <img src="Imgs/profile.png" alt="Dewey Profile" class="start-avatar" />
+          <div>
+            <h3>DeweyOS</h3>
+            <p>Dewey</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="start-search-wrap">
+        <input type="text" id="startSearch" placeholder="Search apps and projects..." />
+      </div>
+
+      <div class="start-menu-apps" id="startMenuApps">
+        <button class="start-item" data-window="aboutWindow">About</button>
+        <button class="start-item" data-window="projectsWindow">Projects</button>
+        <button class="start-item" data-window="chromeWindow">Chrome</button>
+        <button class="start-item" data-window="musicWindow">iHeart</button>
+        <button class="start-item" data-window="terminalWindow">Terminal</button>
+        <button class="start-item" data-window="contactWindow">Contact</button>
+        <button class="start-item" data-window="resumeWindow">Resume</button>
+        <button class="start-item" data-window="recycleWindow">Recycle Bin</button>
+        <button class="start-item" data-window="settingsWindow">Settings</button>
+        <button class="start-item" data-window="serverWindow">Server Monitor</button>
+        <button class="start-item" data-window="storeWindow">App Store</button>
+        <button class="start-item" data-window="systemWindow">About This PC</button>
+        <button class="start-item" id="signOutBtn">Sign Out</button>
+      </div>
     </div>
-  </section>
 
-  <!-- ================= CHROME WINDOW ================= -->
-  <section class="window glass hidden-window" id="chromeWindow">
+    <footer class="taskbar glass" id="taskbar">
+      <div class="taskbar-left">
+        <button class="start-btn" id="startBtn">
+          <img src="Imgs/start.png" alt="Start" class="taskbar-icon-img">
+          <span>Start</span>
+        </button>
 
-    <div class="window-bar">Chrome</div>
+        <div class="task-icons">
+          <button class="task-icon" data-window="aboutWindow">
+            <img src="Imgs/profile.png" alt="About" class="taskbar-icon-img">
+            <span>About</span>
+          </button>
 
-    <div class="chrome-toolbar">
+          <button class="task-icon" data-window="projectsWindow">
+            <img src="Imgs/folder.png" alt="Projects" class="taskbar-icon-img">
+            <span>Projects</span>
+          </button>
 
-      <!-- NAV ICONS -->
-      <!-- CHANGE ICONS HERE -->
-      <button><i class="fas fa-arrow-left"></i></button>
-      <button><i class="fas fa-arrow-right"></i></button>
-      <button><i class="fas fa-redo"></i></button>
+          <button class="task-icon" data-window="chromeWindow">
+            <img src="Imgs/browser.png" alt="Chrome" class="taskbar-icon-img">
+            <span>Chrome</span>
+          </button>
 
-      <input type="text" value="home://welcome">
+          <button class="task-icon" data-window="musicWindow">
+            <img src="Imgs/iheart.png" alt="iHeart" class="taskbar-icon-img">
+            <span>iHeart</span>
+          </button>
 
-      <button>Go</button>
+          <button class="task-icon" data-window="settingsWindow">
+            <span class="taskbar-fa"><i class="fas fa-cog"></i></span>
+            <span>Settings</span>
+          </button>
 
-    </div>
+          <button class="task-icon" data-window="serverWindow">
+            <span class="taskbar-fa"><i class="fas fa-chart-bar"></i></span>
+            <span>Monitor</span>
+          </button>
+        </div>
+      </div>
 
-    <div class="window-content">
-      <iframe src="about:blank"></iframe>
-    </div>
+      <div class="taskbar-right">
+        <div class="system-icons">
+          <button class="sys-btn" id="notifToggle" title="Notifications">
+            <i class="fas fa-bell"></i>
+          </button>
+          <span class="sys-icon" title="Wi-Fi">
+            <i class="fas fa-wifi"></i>
+          </span>
+          <span class="sys-icon" title="Battery">
+            <i class="fas fa-battery-full"></i> 100%
+          </span>
+        </div>
+        <span id="clockBottom">12:00 PM</span>
+      </div>
+    </footer>
+  </main>
 
-  </section>
-
-  <!-- ================= TERMINAL ================= -->
-  <section class="window glass hidden-window" id="terminalWindow">
-    <div class="window-bar">Terminal</div>
-    <div class="window-content" id="terminalOutput"></div>
-  </section>
-
-  <!-- ================= SETTINGS ================= -->
-  <section class="window glass hidden-window" id="settingsWindow">
-    <div class="window-bar">Settings</div>
-    <div class="window-content">
-      <h3>Wallpaper</h3>
-    </div>
-  </section>
-
-  <!-- ================= TASKBAR ================= -->
-  <footer class="taskbar">
-
-    <div class="taskbar-left">
-
-      <!-- START BUTTON -->
-      <button id="startBtn">
-        <img src="Imgs/start.png">
-        <span>Start</span>
-      </button>
-
-      <!-- TASK ICONS -->
-      <button data-window="chromeWindow">
-        <img src="Imgs/browser.png">
-      </button>
-
-      <button data-window="projectsWindow">
-        <img src="Imgs/folder.png">
-      </button>
-
-      <button data-window="musicWindow">
-        <img src="Imgs/iheart.png">
-      </button>
-
-      <!-- CHANGE ICON -->
-      <button data-window="settingsWindow">
-        <i class="fas fa-cog"></i>
-      </button>
-
-    </div>
-
-    <div class="taskbar-right">
-
-      <!-- SYSTEM ICONS -->
-      <!-- CHANGE ICONS HERE -->
-      <i class="fas fa-bell"></i>
-      <i class="fas fa-wifi"></i>
-      <i class="fas fa-battery-full"></i>
-
-      <span id="clockBottom">12:00</span>
-
-    </div>
-
-  </footer>
-
-</main>
-
-<script src="script.js"></script>
-
+  <script src="script.js"></script>
 </body>
 </html>
